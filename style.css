@@ -1,0 +1,267 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to the top */
+    min-height: 100vh; /* Minimum full viewport height */
+    padding: 1rem; /* Adjust padding for mobile view */
+    box-sizing: border-box;
+}
+#app-container {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    max-width: 900px; /* Use max-width for larger screens */
+    width: calc(100% - 2rem); /* Adjust width to fit with body padding, allowing shrinkage */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh; /* Make it almost full height for mobile app feel */
+    margin: auto; /* Center the container horizontally */
+}
+.header {
+    background-color: #1e3a8a;
+    color: #e0e7ff;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-radius: 1.5rem 1.5rem 0 0;
+    position: relative; /* For badge positioning */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.notification-badge {
+    background-color: #ef4444; /* Red */
+    color: white;
+    border-radius: 9999px; /* Fully rounded */
+    padding: 0.1rem 0.5rem; /* Smaller padding */
+    font-size: 0.75rem; /* Smaller font */
+    font-weight: 700;
+    position: absolute; /* Position badge relative to header */
+    top: 0.5rem;
+    right: 0.5rem;
+    min-width: 1.5rem;
+    text-align: center;
+    line-height: 1.25;
+}
+
+/* Form elements styling */
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"], /* New style for time input */
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.submit-button {
+    background-color: #10b981; /* Green */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.submit-button:hover {
+    background-color: #059669; /* Darker green on hover */
+}
+
+.logout-button {
+    background-color: #dc2626; /* Red */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: 1rem; /* Adjust position */
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem); /* Adjust width */
+    max-width: 150px; /* Limit max width */
+}
+.logout-button:hover {
+    background-color: #b91c1c;
+}
+
+
+.list-item {
+    background-color: #e2e8f0;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+.list-item:last-child {
+    margin-bottom: 0;
+}
+.list-item.csr-item {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    background-color: #fffbeb; /* Light yellow for CSRs */
+    border: 1px solid #fcd34d;
+}
+.list-item.csr-item .header-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+
+.alert-message {
+    background-color: #fefcbf;
+    color: #8a6402;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 500;
+}
+.radio-group label {
+    margin-right: 1rem;
+}
+
+/* Login Page Specific Styles */
+#login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    padding: 2rem;
+    text-align: center;
+    width: 100%;
+}
+#login-form {
+    background-color: #f8fafc;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 300px;
+}
+#app-content {
+    display: none; /* Hidden by default */
+    flex-grow: 1; /* Take remaining space */
+    flex-direction: row; /* For sidebar and main content on larger screens */
+    width: 100%;
+    border-radius: 0 0 1.5rem 1.5rem; /* Match app-container bottom corners */
+    overflow: hidden; /* To contain sidebar and main content */
+}
+
+/* Sidebar Styles */
+#sidebar {
+    width: 200px; /* Fixed width sidebar on larger screens */
+    background-color: #2c5282; /* Darker blue for sidebar */
+    color: #e0e7ff;
+    padding: 1rem;
+    box-shadow: 5px 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push logout to bottom */
+    border-radius: 0 0 0 1.5rem; /* Match app-container bottom-left */
+}
+#sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+#sidebar nav li {
+    margin-bottom: 0.75rem;
+}
+#sidebar nav a {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #e0e7ff;
+    transition: background-color 0.2s ease;
+    font-weight: 500;
+}
+#sidebar nav a:hover {
+    background-color: #3182ce; /* Lighter blue on hover */
+}
+#sidebar nav a.active {
+    background-color: #3182ce; /* Active state */
+    font-weight: 700;
+}
+
+/* Main Content Area adjustments */
+#main-content-area {
+    flex-grow: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    background-color: #f8fafc; /* Light background for main content */
+    border-radius: 0 0 1.5rem 0; /* Match app-container bottom-right */
+}
+.content-section {
+    display: none; /* Hidden by default */
+}
+.content-section.active {
+    display: block; /* Shown when active */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    #app-container {
+        width: 100%; /* Take full width on small screens */
+        min-height: 95vh;
+        flex-direction: column; /* Stack header, sidebar, main content */
+        margin: 0; /* Remove auto margin as body padding handles it */
+    }
+    #app-content {
+        flex-direction: column; /* Stack sidebar and main content */
+    }
+    #sidebar {
+        width: 100%; /* Full width sidebar on small screens */
+        padding: 1rem;
+        flex-direction: row; /* Horizontal nav for small screens */
+        justify-content: space-around;
+        flex-wrap: wrap;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        border-radius: 0; /* Remove specific border radius for small screens */
+    }
+    #sidebar nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+    #sidebar nav li {
+        margin: 0.25rem;
+    }
+    #sidebar nav a {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+    #main-content-area {
+        border-radius: 0 0 1.5rem 1.5rem; /* Apply bottom radius to main content */
+        padding: 1rem;
+    }
+    .logout-button {
+        position: static; /* Remove absolute positioning on small screens */
+        transform: none;
+        margin-top: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management App</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+        <!-- Login Page -->
+        <div id="login-page">
+            <h1 class="text-3xl font-bold mb-8 text-gray-800">School Management Login</h1>
+            <div id="login-form">
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+                    <input type="text" id="username" placeholder="admin" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+                    <input type="password" id="password" placeholder="admin123" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button id="login-button" class="submit-button w-full">Login</button>
+                <div id="login-message" class="alert-message hidden mt-4"></div>
+
+                <div class="login-links">
+                    <button id="new-registration-button">New Registration</button>
+                    <span>|</span>
+                    <button id="forgot-password-button">Forgot/Reset Password</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App Content (hidden until login) -->
+        <div id="app-content">
+            <!-- Header for School Management App -->
+            <div class="header">
+                <h1 class="text-2xl font-bold">School Management</h1>
+                <span id="sm-badge" class="notification-badge hidden">0</span>
+            </div>
+
+            <!-- Sidebar Navigation -->
+            <div id="sidebar">
+                <nav>
+                    <ul>
+                        <li><a href="#" id="nav-register-student" class="active">Register New Student</a></li>
+                        <li><a href="#" id="nav-attendance-details">Attendance Details</a></li>
+                        <li><a href="#" id="nav-notifications">Notifications</a></li>
+                        <li><a href="#" id="nav-event-details">Add/Update Event Details</a></li>
+                    </ul>
+                </nav>
+                <button id="logout-button" class="logout-button">Logout</button>
+            </div>
+
+            <!-- Main Content Area -->
+            <div id="main-content-area" class="main-content">
+                <!-- Register New Student Section -->
+                <div id="register-student-section" class="content-section active">
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md mb-8">
+                        <h2 class="text-xl font-semibold mb-4 text-gray-700">Add Student</h2>
+                        <div class="mb-4">
+                            <label for="student-name" class="block text-gray-700 text-sm font-bold mb-2">Student Name:</label>
+                            <input type="text" id="student-name" placeholder="Enter student name" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="mb-4">
+                            <label for="student-class" class="block text-gray-700 text-sm font-bold mb-2">Class:</label>
+                            <input type="text" id="student-class" placeholder="Enter class (e.g., Grade 5)" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="mb-4">
+                            <label for="student-pen" class="block text-gray-700 text-sm font-bold mb-2">PEN Number:</label>
+                            <input type="text" id="student-pen" placeholder="Enter unique PEN number" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <button id="add-student-button" class="submit-button w-full">Add Student</button>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md mb-8">
+                        <h2 class="text-xl font-semibold mb-4 text-gray-700">Registered Students</h2>
+                        <div id="students-list" class="space-y-3">
+                            <p class="text-gray-500 text-center" id="no-students-message">No students added yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attendance Details Section (Combines View and Mark Attendance) -->
+                <div id="attendance-details-section" class="content-section">
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md mb-8">
+                        <h2 class="text-xl font-semibold mb-4 text-gray-700">Mark Attendance</h2>
+                        <div class="mb-4">
+                            <label for="mark-attendance-class-select" class="block text-gray-700 text-sm font-bold mb-2">Select Class:</label>
+                            <select id="mark-attendance-class-select" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">-- Select Class --</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="mark-attendance-date" class="block text-gray-700 text-sm font-bold mb-2">Date:</label>
+                            <input type="date" id="mark-attendance-date" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+
+                        <div id="students-for-attendance" class="space-y-3 mt-4">
+                            <p class="text-gray-500 text-center" id="no-students-for-attendance">Select a class and date to mark attendance.</p>
+                        </div>
+                        <button id="save-attendance-button" class="submit-button w-full mt-6 hidden">Save Attendance</button>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md mb-8">
+                        <h2 class="text-xl font-semibold mb-4 text-gray-700">View Attendance Data</h2>
+                        <div class="mb-4">
+                            <label for="class-for-attendance-view" class="block text-gray-700 text-sm font-bold mb-2">Select Class:</label>
+                            <select id="class-for-attendance-view" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">-- Select Class --</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="attendance-date-select" class="block text-gray-700 text-sm font-bold mb-2">Select Date:</label>
+                            <input type="date" id="attendance-date-select" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div id="attendance-summary" class="mt-4 p-4 bg-blue-50 rounded-lg text-blue-800 text-sm font-medium">
+                            <p>Select a class and date to view attendance.</p>
+                        </div>
+                        <h3 class="text-lg font-semibold mt-6 mb-3 text-gray-700">Absent Students</h3>
+                        <ul id="absent-students-list" class="space-y-2">
+                            <li class="text-gray-500">No absent students to display for this selection.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Notifications Section (CSRs) -->
+                <div id="notifications-section" class="content-section">
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+                        <h2 class="text-xl font-semibold mb-4 text-gray-700">Feedback, Suggestions, Complaints (CSRs)</h2>
+                        <ul id="school-management-csr-list" class="space-y-2">
+                            <li class="text-gray-500">No new CSRs.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Add/Update Event Details Section -->
+                <div id="event-details-section" class="content-section">
+                    <div id="add-edit-event-form-container" class="bg-gray-50 p-6 rounded-xl shadow-md mb-8">
+                        <h2 id="event-form-title" class="text-xl font-semibold mb-4 text-gray-700">Add New Event</h2>
+                        <input type="hidden" id="event-id-to-update">
+                        <div class="mb-4">
+                            <label for="event-name" class="block text-gray-700 text-sm font-bold mb-2">Event Name:</label>
+                            <input type="text" id="event-name" placeholder="e.g., Annual Sports Day" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="mb-4 flex flex-col sm:flex-row gap-4">
+                            <div class="flex-1">
+                                <label for="event-date" class="block text-gray-700 text-sm font-bold mb-2">Event Date:</label>
+                                <input type="date" id="event-date" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div class="flex-1">
+                                <label for="event-time" class="block text-gray-700 text-sm font-bold mb-2">Event Time:</label>
+                                <input type="time" id="event-time" class="shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="event-description" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+                            <textarea id="event-description" rows="3" placeholder="Brief description of the event..." class="shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        </div>
+                        <button id="add-event-button" class="submit-button w-full">Add Event</button>
+                        <button id="save-event-changes-button" class="submit-button w-full hidden">Save Changes</button>
+                        <button id="cancel-event-edit-button" class="submit-button w-full bg-gray-500 hover:bg-gray-700 mt-2 hidden">Cancel Edit</button>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+                        <h2 class="text-xl font-semibold mb-4 text-gray-700">Upcoming Events</h2>
+                        <ul id="events-list" class="space-y-3">
+                            <p class="text-gray-500 text-center" id="no-events-message">No events planned yet.</p>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
